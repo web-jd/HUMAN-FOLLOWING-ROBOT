@@ -1,0 +1,43 @@
+Pseudocode of Human-Following Robot with Obstacle Avoidance
+Step 1: Start
+1. Start the program.
+2. Initialize the Arduino pins, IR sensors, ultrasonic sensor, servo motor, and motor driver.
+3. Set the servo to the centre position (90°).
+4. Stop both motors initially.
+Step 2: Read Sensors
+5. Read the left and right IR sensors using repeated readings to reduce noise.
+6. Measure the front distance using the ultrasonic sensor.
+7. Filter the valid distance readings.
+Step 3: Obstacle Avoidance
+
+8. If an obstacle is detected within the safety distance (15 cm) and neither IR sensor detects the target:
+- Stop the motors.
+- Reverse for a short time.
+- Rotate the servo to the left (45°) and measure the distance.
+- Rotate the servo to the right (135°) and measure the distance.
+- Return the servo to the centre (90°).
+- Select the direction with greater measured clearance.
+- Turn in the selected direction.
+- Return to sensor reading.
+Step 4: Human Following and Adaptive Speed Control
+
+9. If the target is detected by an IR sensor or an object is measured within the following range (12–35 cm):
+- Update the last target detection time.
+- If the target is too close (less than 12 cm), stop the motors.
+- Otherwise, adjust motor speed according to the measured distance.
+- If the right IR sensor detects the target, steer right.
+- Else if the left IR sensor detects the target, steer left.
+- Else, move forward.
+- Return to sensor reading.
+Step 5: Lost-Target Search
+
+10. If the target is not detected:
+- Stop the motors for a short waiting period (700 ms).
+- After the waiting period, rotate in the last known direction.
+- Continue searching for up to 5 seconds.
+- If the target is still not detected, stop the motors.
+Step 6: Repeat
+
+11. Continuously repeat sensor reading, decision-making, and motor control while the robot is operating.
+
+12. End.
